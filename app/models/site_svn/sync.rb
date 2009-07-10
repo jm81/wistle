@@ -1,6 +1,6 @@
 module SiteSvn
   
-  class Sync < Wistle::Svn::Sync
+  class Sync < DmSvn::Svn::Sync
     def initialize(model_row)
       @model_row = model_row
       @model = Article
@@ -11,8 +11,8 @@ module SiteSvn
       @model_row
     end
     
-    # This is a copy of Wistle::Svn::Sync::changesets. It exists here in order
-    # to call SiteSvn::Changeset.new instead of Wistle::Svn::Changeset.new
+    # This is a copy of DmSvn::Svn::Sync::changesets. It exists here in order
+    # to call SiteSvn::Changeset.new instead of DmSvn::Svn::Changeset.new
     def changesets
       sets = []
       

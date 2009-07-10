@@ -38,4 +38,5 @@ dependency "merb_datamapper", merb_gems_version
 dependency "jm81-paginate", "0.1.4", :require_as => "paginate"
 dependency "jm81-svn-fixture", "0.1.1", :require_as => "svn-fixture"
 dependency "jm81-dm-filters", "0.1.1", :require_as => "dm-filters"
+dependency "jm81-dm-svn", "0.1.0", :require_as => "dm-svn"
 dependency "antage-merb-recaptcha", "~> 1.0.0", :require_as => "merb-recaptcha"

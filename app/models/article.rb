@@ -2,13 +2,13 @@ require 'category'
 
 class Article
   include DataMapper::Resource
-  include Wistle::Svn
+  include DmSvn::Svn
   include Filters::Resource
   extend Paginate::DM
   
   property :id, Integer, :serial => true
   
-  belongs_to :category, :wistle => true
+  belongs_to :category, :svn => true
   include SvnExtensions
   
   attr_accessor :tmp_site # Used by Sync

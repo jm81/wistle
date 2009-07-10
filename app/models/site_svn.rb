@@ -1,4 +1,4 @@
-# Update to Wistle::Svn to make it "Site-aware"
+# Update to DmSvn::Svn to make it "Site-aware"
 
 module SiteSvn
 end

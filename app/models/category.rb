@@ -1,6 +1,6 @@
 class Category
   include DataMapper::Resource
-  include Wistle::Svn
+  include DmSvn::Svn
   include ArticleAncestor
 
   property :id, Integer, :serial => true
@@ -10,7 +10,7 @@ class Category
   belongs_to :parent,
       :class_name => 'Category',
       :child_key => [:parent_id],
-      :wistle => true
+      :svn => true
   
   include SvnExtensions
        

@@ -22,3 +22,4 @@ lib/wistle/tmp/*
 config/recaptcha.yml
 app/sites
 public/sites
+*qt_temp*

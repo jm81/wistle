@@ -6,7 +6,7 @@
 
 :test:
   <<: *defaults
-  :database: ../../data/wistle/test.db
+  :database: ":memory:"
 
 :production:
   <<: *defaults

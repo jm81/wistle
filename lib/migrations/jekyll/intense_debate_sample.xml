@@ -1,0 +1,31 @@
+<output>
+  <blogpost>
+    <url>http%3A%2F%2Fhalf-penny.org%2Fcomputing%2Fqb-multiuser</url>
+    <title>Half-Penny For Your Thoughts: Quickbooks Multiuser Setup</title>
+    <guid>http://half-penny.org/computing/qb-multiuser</guid>
+    <comments>
+      <comment>
+        <isAnon>0</isAnon>
+        <name>jm81</name>
+        <email>jmorgan@morgancreative.net</email>
+        <url></url>
+        <ip></ip>
+        <comment>My first test comment  </comment>
+        <date>2009-09-26 20:27:06</date>
+        <gmt>2009-09-26 20:27:06</gmt>
+        <score>1</score>
+      </comment>
+      <comment>
+        <isAnon>0</isAnon>
+        <name>jm81</name>
+        <email>jmorgan@morgancreative.net</email>
+        <url></url>
+        <ip></ip>
+        <comment>My second test comment, yo  </comment>
+        <date>2009-09-26 20:27:48</date>
+        <gmt>2009-09-26 20:27:48</gmt>
+        <score>1</score>
+      </comment>
+    </comments>
+  </blogpost>
+</output>

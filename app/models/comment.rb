@@ -2,16 +2,21 @@ class Comment
   include DataMapper::Resource
   include Filters::Resource
   
-  property :id, Integer, :serial => true
+  def site
+    Article.get(@article_id).site
+  end
   
-  belongs_to :article
+  property :id, Serial
+  
+  belongs_to :article, :nullable => true
   
   belongs_to :parent,
-      :class_name => 'Comment',
+      :model => 'Comment',
+      :nullable => true,
       :child_key => [:parent_id]
        
   has n, :replies,
-      :class_name => 'Comment',
+      :model => 'Comment',
       :child_key => [:parent_id],
       :order => [:created_at.asc]
 
@@ -34,13 +39,9 @@ class Comment
     end
   end
   
-  def site
-    Article.get(@article_id).site
-  end
-  
   def store_article_path
-    update_attributes(:stored_article_path => self.article.path)
-    update_attributes(:site_id => self.article.site.id)
+    update(:stored_article_path => self.article.path)
+    update(:site_id => self.article.site.id)
   end
   
   def reassociate_to_article
@@ -48,7 +49,7 @@ class Comment
     
     Site.get(@site_id).articles.each do |a|
       if a.path == self.stored_article_path
-        self.article_id = a.id
+        self.article = a
         self.save
         return true
       end  

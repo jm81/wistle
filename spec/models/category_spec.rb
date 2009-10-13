@@ -29,14 +29,14 @@ describe Category do
 
   describe "#name" do
     it "should return a name" do
-      @poetry.update_attributes(:name => "Poems")
+      @poetry.update(:name => "Poems")
       @poetry.name.should == "Poems"
     end
     
     it "should default to capitalized svn_name" do
-      @poetry.update_attributes(:name => nil)
+      @poetry.update(:name => nil)
       @poetry.name.should == "Poetry"
-      @poetry.update_attributes(:name => '')
+      @poetry.update(:name => '')
       @poetry.name.should == "Poetry" 
     end
   end

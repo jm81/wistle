@@ -6,7 +6,7 @@ class Content
   include DataMapper::Resource
   
   repository(:mephisto) do
-    property :id, Integer, :serial => true
+    property :id, Serial
     property :article_id, Integer
     property :user_id, Integer
     property :permalink, String
@@ -28,7 +28,7 @@ class ContentVersion
   include DataMapper::Resource
   
   repository(:mephisto) do
-    property :id, Integer, :serial => true
+    property :id, Serial
     property :article_id, Integer
     property :user_id, Integer
     property :permalink, String
@@ -52,7 +52,7 @@ class AssignedSection
   include DataMapper::Resource
   
   repository(:mephisto) do
-    property :id, Integer, :serial => true
+    property :id, Serial
     property :article_id, Integer
     property :section_id, Integer
   end
@@ -62,7 +62,7 @@ class Section
   include DataMapper::Resource
   
   repository(:mephisto) do
-    property :id, Integer, :serial => true
+    property :id, Serial
     property :site_id, Integer
     property :path, String
   end
@@ -74,7 +74,7 @@ class MephistoTagging
   repository(:mephisto) do
     @storage_names[:mephisto] = 'taggings'
     
-    property :id, Integer, :serial => true
+    property :id, Serial
     property :taggable_id, Integer
     property :taggable_type, String
     property :tag_id, Integer
@@ -87,7 +87,7 @@ class MephistoTag
   repository(:mephisto) do
     @storage_names[:mephisto] = 'tags'
     
-    property :id, Integer, :serial => true
+    property :id, Serial
     property :name, String
   end
 end
@@ -220,7 +220,7 @@ module Migrations
           ContentVersion.all(:article_id => content.id).each do |cv|
             if cv.site_id != content.site_id
               puts "#{content.id}: #{cv.id} (#{content.site_id}) - #{content.permalink}"
-              cv.update_attributes(:site_id => content.site_id)
+              cv.update(:site_id => content.site_id)
             end
           end
         end

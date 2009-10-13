@@ -40,7 +40,7 @@ describe Article do
     @article.body = "Howdy *folks*"
     @article.filters = "Markdown"
     @article.save
-    @article.html.should == "<p>Howdy <em>folks</em></p>\n"
+    @article.html.should == "<p>Howdy <em>folks</em></p>"
   end
 
   it "should filter body to html (with Textile)" do
@@ -85,12 +85,12 @@ describe Article do
     it "should save #published_at nil" do
       @article.published_at = Time.now
       @article.save
-      @article.reload_attributes(:published_at)
+      @article.reload
       @article.published?.should be_true
 
       @article.published_at = nil
       @article.save
-      @article.reload_attributes(:published_at)
+      @article.reload
       @article.published?.should be_false      
     end
   end

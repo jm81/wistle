@@ -10,7 +10,7 @@ module SiteSvn
         a.tmp_site = @sync.site
         a
       else
-        @sync.site.categories.build
+        @sync.site.categories.new
       end
     end
   end

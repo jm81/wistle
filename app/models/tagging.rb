@@ -2,7 +2,7 @@ class Tagging
   include DataMapper::Resource
   extend Paginate::DM
   
-  property :id, Integer, :serial => true
+  property :id, Serial
   property :article_id, Integer
   property :tag_id, Integer
   

@@ -1,18 +1,6 @@
 require 'category'
 
 class Article
-  include DataMapper::Resource
-  include DmSvn::Svn
-  include Filters::Resource
-  extend Paginate::DM
-  
-  property :id, Integer, :serial => true
-  
-  belongs_to :category, :svn => true
-  include SvnExtensions
-  
-  attr_accessor :tmp_site # Used by Sync
-  
   # Get site through category
   def site
     # Something to do with when things are processed means this method
@@ -21,10 +9,22 @@ class Article
       Category.get(@category_id).site
   end
   
+  include DataMapper::Resource
+  include DmSvn::Svn
+  include Filters::Resource
+  extend Paginate::DM
+  
+  property :id, Serial
+  
+  belongs_to :category, :nullable => true, :svn => true
+  include SvnExtensions
+  
+  attr_accessor :tmp_site # Used by Sync
+  
   has n, :comments
  
   has n, :direct_comments,
-      :class_name => 'Comment',
+      :model => 'Comment',
       :order => [:created_at.asc],
       :parent_id => nil
   

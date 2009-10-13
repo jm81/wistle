@@ -3,19 +3,20 @@ class Category
   include DmSvn::Svn
   include ArticleAncestor
 
-  property :id, Integer, :serial => true
+  property :id, Serial
   
   belongs_to :site
 
   belongs_to :parent,
-      :class_name => 'Category',
+      :model => 'Category',
       :child_key => [:parent_id],
+      :nullable => true,
       :svn => true
   
   include SvnExtensions
        
   has n, :children,
-      :class_name => 'Category',
+      :model => 'Category',
       :child_key => [:parent_id],
       :order => [:name.asc]
       

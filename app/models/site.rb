@@ -2,19 +2,27 @@ class Site
   include DataMapper::Resource
   include ArticleAncestor
 
-  property :id, Integer, :serial => true
+  property :id, Serial
 
   attr_accessor :path_from_root # Used by Sync.
   
   has n, :categories, :order => [:name]
   has n, :top_level_categories,
-      :class_name => 'Category',
+      :model => 'Category',
       :parent_id => nil,
       :order => [:name]
   has n, :articles, :through => :categories
   has n, :comments
-  has n, :taggings, :through => :articles
-  has n, :tags, :through => :taggings
+  
+  def taggings
+    self.articles.reload
+    self.articles.taggings
+  end
+  
+  def tags
+    self.articles.reload
+    self.articles.tags
+  end
   
   property :name, String, :unique => true, :nullable => false
   property :domain_regex, String
@@ -141,7 +149,7 @@ class Site
     
     def a.get(path_or_id)
       if path_or_id.is_a?(String)
-        Article.get(self.instance_variable_get("@parent"), path_or_id) ||
+        Article.get(self.source, path_or_id) ||
         super
       else
         super
@@ -151,12 +159,13 @@ class Site
     def a.get_published(path_or_id)
       if path_or_id.is_a?(String)
         article = 
-          Article.get(self.instance_variable_get("@parent"), path_or_id, false, true) ||
+          Article.get(self.source, path_or_id, false, true) ||
           get(path_or_id)
       else
         article = get(path_or_id)
       end
       
+      article.reload if article
       (article && article.published?) ? article : nil
     end
     
@@ -182,7 +191,7 @@ class Site
     
     def reset_exports
       Site.all.each do |site|
-        site.update_attributes(:views_revision => 0, :public_revision => 0)
+        site.update(:views_revision => 0, :public_revision => 0)
       end
     end
     

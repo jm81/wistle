@@ -5,7 +5,7 @@ describe Comment do
   before(:each) do
     clean Site, Category, Article, Comment
     @article = setup_article
-    @article.path = "category/article"
+    @article.path = @article_path = "category/article"
     @comment = @article.comments.create({
         :author => 'Jane Doe', :body => 'My comments'})
   end
@@ -83,7 +83,7 @@ describe Comment do
     @comment.body = "Howdy *folks*"
     @comment.filters = "Markdown"
     @comment.save
-    @comment.html.should == "<p>Howdy <em>folks</em></p>\n"
+    @comment.html.should == "<p>Howdy <em>folks</em></p>"
   end
   
   it 'should have access to article path' do
@@ -101,7 +101,7 @@ describe Comment do
   
   it 'should reassociate to an article' do
     new_article = setup_article(@article.site)
-    new_article.update_attributes(:svn_name => 'path/to/second')
+    new_article.update(:svn_name => 'path/to/second')
     @comment.site_id = @article.site.id
     @comment.stored_article_path = @article_path
     @comment.save
@@ -109,10 +109,13 @@ describe Comment do
     @comment.save
     @comment.article.should be(new_article)
     @comment.reassociate_to_article.should be(true)
+    @comment.reload
     @comment.article_id.should == @article.id
+    @comment.article.should == @article
 
-    @comment.update_attributes(:stored_article_path => 'no/article/path')
+    @comment.update(:stored_article_path => 'no/article/path')
     @comment.reassociate_to_article.should be(false)
+    @comment.reload
     @comment.article_id.should == @article.id
   end
 

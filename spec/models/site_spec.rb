@@ -15,13 +15,13 @@ describe Site do
   end
   
   it "should have many Categories" do
-    @site.categories.should be_kind_of(DataMapper::Associations::OneToMany::Proxy)
+    @site.categories.should be_kind_of(DataMapper::Associations::OneToMany::Collection)
     @site.categories.should have(3).members
     @category.site.should == @site
   end
   
   it "should distinguish top-level Categories" do
-    @site.categories.should be_kind_of(DataMapper::Associations::OneToMany::Proxy)
+    @site.categories.should be_kind_of(DataMapper::Associations::OneToMany::Collection)
     @site.top_level_categories.should have(2).members
   end
   
@@ -29,7 +29,7 @@ describe Site do
     a = @category.articles.create(:title => "Title", :body => "Contents")
     a.category.should == @category
     a.site.should == @site
-    @site.articles.should be_kind_of(DataMapper::Associations::OneToMany::Proxy)
+    @site.articles.should be_kind_of(DataMapper::Associations::OneToMany::Collection)
     @site.articles.should have(1).member
   end
   
@@ -129,7 +129,7 @@ describe Site do
     end
     
     it "should not get unpublished articles" do
-      @soup.update_attributes(:published_at => (Time.now + 3600))
+      @soup.update(:published_at => (Time.now + 3600))
       @soup_site.articles_tagged("Tomato").length.should == 0
     end
   
@@ -147,7 +147,7 @@ describe Site do
       c.path = "cat"
       c.save
       a = setup_article(c)
-      a.update_attributes(:svn_name => path, :published_at => Time.now - 3600)
+      a.update(:svn_name => path, :published_at => Time.now - 3600)
       a
     end
     
@@ -181,7 +181,7 @@ describe Site do
       c = @site.reassociate_comments.should be(true)
       
       @comments.each do |c|
-        c.update_attributes(:stored_article_path => 'cat/no_path')
+        c.update(:stored_article_path => 'cat/no_path')
       end
       @site.reassociate_comments.length.should == 4
     end
@@ -198,8 +198,8 @@ describe Site do
       s2 = Site.create(:name => 'second')
       a2 = setup_article(s2, :svn_name => 'path')
       
-      a1.category.update_attributes(:svn_name => "cat")
-      a2.category.update_attributes(:svn_name => "cat")
+      a1.category.update(:svn_name => "cat")
+      a2.category.update(:svn_name => "cat")
       
       Article.get(s1, 'cat/path').id.should == a1.id
       s1.articles.get('cat/path').id.should == a1.id
@@ -220,8 +220,8 @@ describe Site do
       s2 = Site.create(:name => 'second')
       a2 = setup_article(s2, :svn_name => 'path', :published_at => (Time.now - 3600))
       
-      a1.category.update_attributes(:svn_name => "cat")
-      a2.category.update_attributes(:svn_name => "cat")
+      a1.category.update(:svn_name => "cat")
+      a2.category.update(:svn_name => "cat")
       
       Article.get(s1, 'cat/path').should == a1
       s1.articles.get_published('cat/path').should == a1
@@ -232,15 +232,15 @@ describe Site do
     it "should only get published" do
       s1 = Site.create(:name => 'first')
       a1 = setup_article(s1, :svn_name => 'path', :published_at => (Time.now - 3600))
-      a1.category.update_attributes(:svn_name => "cat")
+      a1.category.update(:svn_name => "cat")
       s1.articles.get_published('cat/path').id.should == a1.id
       
       # unpublished
-      a1.update_attributes(:published_at => nil)
+      a1.update(:published_at => nil)
       s1.articles.get_published('cat/path').should be_nil
       
       # published in the future
-      a1.update_attributes(:published_at => (Time.now + 3600))
+      a1.update(:published_at => (Time.now + 3600))
       s1.articles.get_published('cat/path').should be_nil
     end
     
@@ -268,7 +268,7 @@ describe Site do
     
     it "should scope by site" do
       new_article = setup_article(nil, :svn_name => 'red-riding-hood', :published_at => (Time.now - 3600))
-      new_article.category.update_attributes(:svn_name => 'cat')
+      new_article.category.update(:svn_name => 'cat')
       @site.published_articles.should == [@politics, @red]
       new_article.site.published_articles.should == [new_article]
     end

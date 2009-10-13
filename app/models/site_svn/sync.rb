@@ -52,7 +52,7 @@ module SiteSvn
       @ctx.export(uri, export_path)
       
       row_update = @model_row.class.get(@model_row.id)
-      row_update.update_attributes("#{name}_revision" => @repos.latest_revnum)
+      row_update.update("#{name}_revision" => @repos.latest_revnum)
       true
     end
     

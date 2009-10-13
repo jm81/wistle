@@ -29,7 +29,7 @@ class Article
       :parent_id => nil
   
   has n, :taggings
-  has n, :tags, :through => :taggings, :links => [:tagging]
+  has n, :tags, :through => :taggings
   
   property :category_id, Integer
   property :title, String, :length => 255

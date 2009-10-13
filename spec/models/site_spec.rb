@@ -94,10 +94,12 @@ describe Site do
   
   it "should have many tags" do
     @category.articles.create.tags = "Chicken; Soup"
+    @site.articles.reload
     @site.tags.count.should == 2
     
     other = setup_article
     other.tags = "Other; Chicken"
+    @site.articles.reload
     @site.tags.count.should == 2
   end
   

@@ -15,12 +15,10 @@ class Site
   has n, :comments
   
   def taggings(*args)
-    self.articles.reload
     self.articles.taggings(*args)
   end
   
   def tags(*args)
-    self.articles.reload
     self.articles.tags(*args)
   end
   

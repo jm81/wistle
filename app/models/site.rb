@@ -14,14 +14,14 @@ class Site
   has n, :articles, :through => :categories
   has n, :comments
   
-  def taggings
+  def taggings(*args)
     self.articles.reload
-    self.articles.taggings
+    self.articles.taggings(*args)
   end
   
-  def tags
+  def tags(*args)
     self.articles.reload
-    self.articles.tags
+    self.articles.tags(*args)
   end
   
   property :name, String, :unique => true, :nullable => false

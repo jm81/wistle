@@ -37,5 +37,5 @@ gem "merb_datamapper", merb_gems_version
 gem "jm81-paginate", "0.1.6", :require_as => "paginate"
 gem "jm81-dm-filters", "0.3.0", :require_as => "dm-filters"
 gem "svn-fixture", "0.1.2"
-gem "dm-svn", "0.2.1"
+gem "dm-svn", "0.2.2"
 gem "antage-merb-recaptcha", "~> 1.0.0", :require_as => "merb-recaptcha"

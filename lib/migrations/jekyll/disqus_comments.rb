@@ -65,3 +65,11 @@ module JekyllMigration
    
   end
 end
+
+=begin
+Sample Usage:
+
+File.open(File.join(Merb.root, 'xmlout.xml'), 'w') do |f|
+  JekyllMigration::DisqusComments.new(Site.first.id, 'http://half-penny.org/').to_xml(f)
+end
+=end

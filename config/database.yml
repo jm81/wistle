@@ -1,16 +1,16 @@
 ---
 
-:development: &defaults
-  :adapter: sqlite3
-  :database: ../../data/wistle/dev.db
+development: &defaults
+  adapter: sqlite
+  path: ../../data/wistle/dev.db
 
-:test:
+test:
   <<: *defaults
-  :database: ":memory:"
+  path: ":memory:"
 
-:production:
+production:
   <<: *defaults
-  :database: /u/data/fs/wistle/pro.db
+  path: /u/apps/wistle/shared/data/pro.db
 
-:rake:
+rake:
   <<: *defaults

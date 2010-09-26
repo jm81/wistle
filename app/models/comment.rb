@@ -3,16 +3,16 @@ class Comment
   include Filters::Resource
   
   def site
-    Article.get(@article_id).site
+    Article.get(self.article_id).site
   end
   
   property :id, Serial
   
-  belongs_to :article, :nullable => true
+  belongs_to :article, :required => false
   
   belongs_to :parent,
       :model => 'Comment',
-      :nullable => true,
+      :required => false,
       :child_key => [:parent_id]
        
   has n, :replies,
@@ -20,10 +20,10 @@ class Comment
       :child_key => [:parent_id],
       :order => [:created_at.asc]
 
-  property :author, String, :nullable => false, :length => 100
+  property :author, String, :required => true, :length => 100
   property :email, String, :format => :email_address
   property :html, Text, :lazy => false
-  property :body, Text, :nullable => false,
+  property :body, Text, :required => true,
            :filter => {:to => :html, :with => :filters, :default => :site}
   property :site_id, Integer
   property :stored_article_path, Text
@@ -47,7 +47,7 @@ class Comment
   def reassociate_to_article
     self.reload # Ensure we have the latest path from database.
     
-    Site.get(@site_id).articles.each do |a|
+    Site.get(self.site_id).articles.each do |a|
       if a.path == self.stored_article_path
         self.article = a
         self.save

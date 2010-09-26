@@ -22,7 +22,7 @@ class Site
     self.articles.tags(*args)
   end
   
-  property :name, String, :unique => true, :nullable => false
+  property :name, String, :unique => true, :required => true
   property :domain_regex, String
   
   # Subversion

@@ -16,7 +16,7 @@ class Article
   
   property :id, Serial
   
-  belongs_to :category, :nullable => true, :svn => true
+  belongs_to :category, :required => false, :svn => true
   include SvnExtensions
   
   attr_accessor :tmp_site # Used by Sync

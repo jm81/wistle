@@ -10,7 +10,7 @@ class Category
   belongs_to :parent,
       :model => 'Category',
       :child_key => [:parent_id],
-      :nullable => true,
+      :required => false,
       :svn => true
   
   include SvnExtensions

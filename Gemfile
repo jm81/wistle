@@ -50,7 +50,7 @@ gem 'merb_datamapper',          merb_related_gems
 gem 'jm81-paginate', '0.1.6', :require => 'paginate'
 gem 'jm81-dm-filters', '0.3.0', :require => 'dm-filters'
 gem 'svn-fixture', '0.1.2'
-gem 'dm-svn', '0.2.3'
+gem 'dm-svn', '0.2.4'
 gem 'merb-recaptcha', '~> 1.0.3'
 gem 'maruku'
 gem 'rubypants'

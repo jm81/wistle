@@ -47,7 +47,9 @@ GEM
     eventmachine (0.12.10)
     extlib (0.9.15)
     fastercsv (1.5.3)
-    haml (3.0.18)
+    haml (5.1.2)
+      temple (>= 0.8.0)
+      tilt
     jm81-dm-filters (0.3.0)
       dm-core (>= 0.10.0)
       extlib
@@ -97,10 +99,12 @@ GEM
     stringex (1.1.0)
     svn-fixture (0.1.2)
     syntax (1.0.0)
+    temple (0.8.2)
     thin (1.2.7)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
+    tilt (2.0.10)
     uuidtools (2.1.1)
 
 PLATFORMS
